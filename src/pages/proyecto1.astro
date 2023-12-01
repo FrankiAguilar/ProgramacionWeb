@@ -1,0 +1,123 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <div slot="article" class="w-full flex mt-5 mb-5 justify-center">
+    <div id="div1">
+      <img id="car0" src="/tapa.webp" onclick="voltearCarta(0);"/>
+      <img id="car1" src="/tapa.webp" />
+      <img id="car2" src="/tapa.webp" />
+    </div>
+    <div id="div2">
+      <img id="car3" src="/tapa.webp" />
+      <img id="car4" src="/tapa.webp" />
+      <img id="car5" src="/tapa.webp" />
+    </div>
+    <div id="div3">
+      <img id="car6" src="/tapa.webp" />
+      <img id="car7" src="/tapa.webp" />
+      <img id="car8" src="/tapa.webp" />
+    </div>
+    <div id="div4">
+      <img id="car9" src="/tapa.webp" />
+      <img id="car10" src="/tapa.webp" />
+      <img id="car11" src="/tapa.webp" />
+    </div>
+  </div>
+  <style>
+    img {
+      height: 175px;
+      width: 150px;
+      margin: 10px;
+      border: 5px solid #452c03;
+      border-radius: 10%;
+    }
+    img:hover {
+      transform: scale(1.1, 1.1);
+    }
+  </style>
+</Layout>
+<script>
+  let numsA = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+  let imgArr = [
+    "/1.webp",
+    "/2.webp",
+    "/3.webp",
+    "/4.webp",
+    "/5.webp",
+    "/6.webp",
+    "/1.webp",
+    "/2.webp",
+    "/3.webp",
+    "/4.webp",
+    "/5.webp",
+    "/6.webp",
+  ];
+
+  let carV = [];
+  let carVID = [];
+  let win = 0;
+
+  let i = numsA.length,
+    j,
+    temp;
+  while (--i > 0) {
+    j = Math.floor(Math.random() * (i + 1));
+    temp = numsA[j];
+    numsA[j] = numsA[i];
+    numsA[i] = temp;
+  }
+
+  function voltearCarta(p) {
+    document.getElementById("car" + p).src = imgArr[numsA[p]];
+    carV.push(document.getElementById("car" + p).src);
+    carVID.push(document.getElementById("car" + p).id);
+    if (carV.length == 2) {
+      setTimeout(() => {
+        if (carV[0] != carV[1]) {
+          document.getElementById(carVID[0]).src = "/tapa.webp";
+          document.getElementById(carVID[1]).src = "/tapa.webp";
+        } else {
+          win += 2;
+          ganar();
+        }
+        carV = [];
+        carVID = [];
+      }, 250);
+    }
+  }
+
+  function ganar() {
+    if (win == 12) {
+      win = 0;
+      setTimeout(() => {
+        for (let i = 0; i < 12; i++) {
+          document.getElementById("car" + i).src = "/tapa.webp";
+        }
+      }, 1000);
+      let i = numsA.length,
+        j,
+        temp;
+      while (--i > 0) {
+        j = Math.floor(Math.random() * (i + 1));
+        temp = numsA[j];
+        numsA[j] = numsA[i];
+        numsA[i] = temp;
+      }
+    }
+  }
+  document.getElementById("car0").addEventListener("click", () => {voltearCarta(0)});
+  document.getElementById("car1").addEventListener("click", () => {voltearCarta(1)});
+  document.getElementById("car2").addEventListener("click", () => {voltearCarta(2)});
+  document.getElementById("car3").addEventListener("click", () => {voltearCarta(3)});
+  document.getElementById("car4").addEventListener("click", () => {voltearCarta(4)});
+  document.getElementById("car5").addEventListener("click", () => {voltearCarta(5)});
+  document.getElementById("car6").addEventListener("click", () => {voltearCarta(6)});
+  document.getElementById("car7").addEventListener("click", () => {voltearCarta(7)});
+  document.getElementById("car8").addEventListener("click", () => {voltearCarta(8)});
+  document.getElementById("car9").addEventListener("click", () => {voltearCarta(9)});
+  document.getElementById("car10").addEventListener("click", () => {voltearCarta(10)});
+  document.getElementById("car11").addEventListener("click", () => {voltearCarta(11)});
+</script>
